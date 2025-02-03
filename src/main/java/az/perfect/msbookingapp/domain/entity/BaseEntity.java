@@ -37,8 +37,8 @@ public class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Column(name = "create_by", nullable = false)
-    private Long createdId;
+    private Long createdBy;
 
     @Column(name = "update_by", nullable = false)
-    private Long updatedId;
+    private Long updatedBy;
 }
