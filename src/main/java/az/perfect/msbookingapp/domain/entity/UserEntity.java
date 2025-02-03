@@ -1,7 +1,7 @@
 package az.perfect.msbookingapp.domain.entity;
 
-import az.perfect.msbookingapp.domain.enums.Nationality;
-import az.perfect.msbookingapp.domain.enums.Role;
+import az.perfect.msbookingapp.model.enums.Nationality;
+import az.perfect.msbookingapp.model.enums.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
