@@ -65,5 +65,5 @@ public class FlightEntity extends BaseEntity {
     private List<BookingEntity> flights;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Ticket> tickets;
+    private List<TicketEntity> tickets;
 }
