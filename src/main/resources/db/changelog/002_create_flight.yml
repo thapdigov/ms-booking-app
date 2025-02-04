@@ -1,86 +1,79 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-user-table
+      id: 002-create-flight-table
       author: Bahruz Tapdigov
       changes:
         - createTable:
-            tableName: users
+            tableName: flight
             columns:
               - column:
                   name: id
                   type: BIGINT
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-
+                    autoIncrement: true
               - column:
-                  name: first_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: last_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: email
+                  name: airline_name
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
                     unique: true
-
+                    uniqueConstraintName: uq_airline_name
               - column:
-                  name: role
+                  name: departure_city
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-
               - column:
-                  name: phone_number
-                  type: VARCHAR(20)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: date_of_birth
-                  type: DATE
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: nationality
+                  name: arrival_city
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-
+              - column:
+                  name: departure_airport
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: arrival_airport
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: departure_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: arrival_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: flight_detail_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_flight_detail
+                    references: flightdetail(id)
               - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: updated_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: create_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
               - column:
                   name: update_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
-
-
-

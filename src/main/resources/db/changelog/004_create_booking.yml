@@ -1,86 +1,61 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-user-table
+      id: 004-create-booking-table
       author: Bahruz Tapdigov
       changes:
         - createTable:
-            tableName: users
+            tableName: booking
             columns:
               - column:
                   name: id
                   type: BIGINT
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-
+                    autoIncrement: true
               - column:
-                  name: first_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: last_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: email
-                  type: VARCHAR(255)
+                  name: seat_number
+                  type: BIGINT
                   constraints:
                     nullable: false
                     unique: true
-
+                    uniqueConstraintName: uq_seat_number
               - column:
-                  name: role
+                  name: flight_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_flight
+                    references: flight(id)
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_user
+                    references: users(id)
+              - column:
+                  name: booking_status
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-
-              - column:
-                  name: phone_number
-                  type: VARCHAR(20)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: date_of_birth
-                  type: DATE
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: nationality
-                  type: VARCHAR(50)
-                  constraints:
-                    nullable: false
-
               - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: updated_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: create_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
               - column:
                   name: update_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
-
-
-
