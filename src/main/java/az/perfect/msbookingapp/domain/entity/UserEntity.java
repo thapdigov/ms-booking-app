@@ -57,6 +57,6 @@ public class UserEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
 
-    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookingEntity> bookings;
 }

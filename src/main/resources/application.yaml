@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ms-booking
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ms-booking-app
+    username: root
+    password: root1234
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:/db/change-master.yaml
+
+
+
+
+
+

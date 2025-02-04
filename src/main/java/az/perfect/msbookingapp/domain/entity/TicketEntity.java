@@ -38,8 +38,6 @@ public class TicketEntity {
 
     @Column(name = "price", nullable = false)
     private Integer price;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "flight_id", nullable = false)
-    FlightEntity flightEntity;
+    FlightEntity flight;
 }
