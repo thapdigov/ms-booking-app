@@ -2,10 +2,13 @@ package az.perfect.msbookingapp.domain.entity;
 
 import az.perfect.msbookingapp.model.enums.AirCraftModel;
 import az.perfect.msbookingapp.model.enums.Status;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,4 +55,7 @@ public class FlightDetailEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "flight_status", nullable = false)
     private Status flightStatus;
+
+    @OneToOne(mappedBy = "flightDetail",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private FlightEntity flight;
 }

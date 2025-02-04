@@ -32,11 +32,10 @@ public class BookingEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "flight_id", nullable = false)
-    private FlightEntity flightEntity;
+    private FlightEntity flight;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "booking_status", nullable = false)
