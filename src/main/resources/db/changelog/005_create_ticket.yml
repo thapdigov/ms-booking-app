@@ -1,86 +1,52 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-user-table
+      id: 005-create-ticket-table
       author: Bahruz Tapdigov
       changes:
         - createTable:
-            tableName: users
+            tableName: ticket
             columns:
               - column:
-                  name: id
+                  name: ticket_id
                   type: BIGINT
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-
+                    autoIncrement: true
               - column:
-                  name: first_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: last_name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: email
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-                    unique: true
-
-              - column:
-                  name: role
+                  name: class_type
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-
               - column:
-                  name: phone_number
-                  type: VARCHAR(20)
+                  name: price
+                  type: INT
                   constraints:
                     nullable: false
-
               - column:
-                  name: date_of_birth
-                  type: DATE
+                  name: flight_id
+                  type: BIGINT
                   constraints:
                     nullable: false
-
-              - column:
-                  name: nationality
-                  type: VARCHAR(50)
-                  constraints:
-                    nullable: false
-
+                    foreignKeyName: fk_ticket_flight
+                    references: flight(id)
               - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: updated_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: create_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
               - column:
                   name: update_by
                   type: BIGINT
                   constraints:
                     nullable: false
-
-
-
-
