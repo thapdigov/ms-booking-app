@@ -1,4 +1,4 @@
-package az.perfect.msbookingapp.model.request;
+package az.perfect.msbookingapp.model.dto.request;
 
 import az.perfect.msbookingapp.model.enums.AirCraftModel;
 import az.perfect.msbookingapp.model.enums.City;

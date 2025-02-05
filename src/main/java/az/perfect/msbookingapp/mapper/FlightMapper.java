@@ -3,7 +3,7 @@ package az.perfect.msbookingapp.mapper;
 import az.perfect.msbookingapp.domain.entity.FlightDetailEntity;
 import az.perfect.msbookingapp.domain.entity.FlightEntity;
 import az.perfect.msbookingapp.model.dto.FlightDto;
-import az.perfect.msbookingapp.model.request.CreateFlightRequest;
+import az.perfect.msbookingapp.model.dto.request.CreateFlightRequest;
 import org.springframework.stereotype.Component;
 
 @Component
