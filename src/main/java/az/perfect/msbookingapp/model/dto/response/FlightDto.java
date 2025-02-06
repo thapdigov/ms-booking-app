@@ -1,4 +1,4 @@
-package az.perfect.msbookingapp.model.dto;
+package az.perfect.msbookingapp.model.dto.response;
 
 import az.perfect.msbookingapp.domain.entity.FlightDetailEntity;
 import az.perfect.msbookingapp.model.enums.City;
