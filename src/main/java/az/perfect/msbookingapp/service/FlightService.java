@@ -30,7 +30,7 @@ public class FlightService {
 
 
     public FlightDto create(CreateFlightRequest request, Long id) {
-        checkAdmin(id);
+        validateAdmin(id);
         if (request.getDepartureTime().isBefore(LocalDateTime.now())) {
             throw new TimeException("Time does not right!");
         }
@@ -52,21 +52,48 @@ public class FlightService {
     }
 
     public void deleteFlightById(Long adminId, Long flightId) {
-        checkAdmin(adminId);
-        FlightEntity flightEntity = flightRepository.findById(flightId)
-                .orElseThrow(() -> new NotFoundException("Flight not found with " + flightId));
-        flightEntity.getFlightDetail().setFlightStatus(Status.DELETE);
+        validateAdmin(adminId);
+        FlightEntity deletedFlight = flightFindById(flightId);
+        deletedFlight.getFlightDetail().setFlightStatus(Status.DELETE);
+        flightRepository.save(deletedFlight);
     }
 
 
     public FlightDto updateFlight(Long adminId, Long flightId, UpdateFlightRequest updateFlightRequest) {
+        validateAdmin(adminId);
+        FlightEntity flightEntity = flightFindById(flightId);
+        flightEntity.setAirlineName(updateFlightRequest.getAirlineName());
+        flightEntity.setDepartureCity(updateFlightRequest.getDepartureCity());
+        flightEntity.setArrivalCity(updateFlightRequest.getArrivalCity());
+        flightEntity.setDepartureAirport(updateFlightRequest.getDepartureAirport());
+        flightEntity.setArrivalAirport(updateFlightRequest.getArrivalAirport());
+        flightEntity.setDepartureTime(updateFlightRequest.getDepartureTime());
+        flightEntity.setArrivalTime(updateFlightRequest.getArrivalTime());
+        flightEntity.getFlightDetail().setGateNumber(updateFlightRequest.getGateNumber());
+        flightEntity.getFlightDetail().setMaxBaggageWeight(updateFlightRequest.getMaxBaggageWeight());
+        flightEntity.getFlightDetail().setIsWifiAvailable(updateFlightRequest.getIsWifiAvailable());
+        flightEntity.getFlightDetail().setAvailableSeats(updateFlightRequest.getAvailableSeats());
+        flightEntity.getFlightDetail().setMaxSeats(updateFlightRequest.getMaxSeats());
+        flightEntity.getFlightDetail().setFlightStatus(updateFlightRequest.getFlightStatus());
+        FlightEntity updatedFlight = flightRepository.save(flightEntity);
+        return flightMapper.toDto(updatedFlight);
     }
 
-    public void checkAdmin(Long id) {
+    public FlightDto getById(Long flightId) {
+        FlightEntity flight = flightFindById(flightId);
+        return flightMapper.toDto(flight);
+    }
+
+    public void validateAdmin(Long id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found with " + id));
         if (!(user.getRole().equals(Role.ADMIN))) {
             throw new UnauthorizedAccessException("User role is not Admin!");
         }
+    }
+
+    public FlightEntity flightFindById(Long flightId) {
+        return flightRepository.findById(flightId)
+                .orElseThrow(() -> new NotFoundException("Flight not found with " + flightId));
     }
 }

@@ -54,9 +54,15 @@ public class FlightController {
     public ResponseEntity<FlightDto> update(@Min(1) @NotNull @PathVariable Long adminId,
                                             @Min(1) @NotNull @PathVariable Long flightId,
                                             @Valid @RequestBody UpdateFlightRequest updateFlightRequest
-                                            ) {
-        return ResponseEntity.ok(flightService.updateFlight(adminId,flightId,updateFlightRequest));
+    ) {
+        return ResponseEntity.ok(flightService.updateFlight(adminId, flightId, updateFlightRequest));
     }
+
+    @GetMapping("/{flightId}")
+    public ResponseEntity<FlightDto> getById(@Min(1) @NotNull @PathVariable Long flightId){
+        return ResponseEntity.ok(flightService.getById(flightId));
+    }
+
 
     @DeleteMapping("/admin/{adminId}/{flightId}")
     public ResponseEntity<Void> delete(@Min(1) @NotNull @PathVariable Long adminId,

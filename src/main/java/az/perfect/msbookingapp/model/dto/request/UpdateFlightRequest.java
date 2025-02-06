@@ -4,10 +4,18 @@ import az.perfect.msbookingapp.model.enums.AirCraftModel;
 import az.perfect.msbookingapp.model.enums.City;
 import az.perfect.msbookingapp.model.enums.Status;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UpdateFlightRequest {
 
     @NotBlank
@@ -44,3 +52,4 @@ public class UpdateFlightRequest {
     private Integer maxSeats;
     @NotBlank
     private Status flightStatus;
+}

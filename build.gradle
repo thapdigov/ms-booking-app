@@ -33,6 +33,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.4.2'
     implementation 'org.liquibase:liquibase-core:4.24.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.8.4'
+
 }
 
 tasks.named('test') {
