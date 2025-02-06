@@ -9,7 +9,7 @@ import az.perfect.msbookingapp.exception.NotFoundException;
 import az.perfect.msbookingapp.exception.TimeException;
 import az.perfect.msbookingapp.exception.UnauthorizedAccessException;
 import az.perfect.msbookingapp.mapper.FlightMapper;
-import az.perfect.msbookingapp.model.dto.FlightDto;
+import az.perfect.msbookingapp.model.dto.response.FlightDto;
 import az.perfect.msbookingapp.model.dto.request.CreateFlightRequest;
 import az.perfect.msbookingapp.model.enums.Role;
 import az.perfect.msbookingapp.model.enums.Status;

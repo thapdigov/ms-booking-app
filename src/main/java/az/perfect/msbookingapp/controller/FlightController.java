@@ -1,6 +1,6 @@
 package az.perfect.msbookingapp.controller;
 
-import az.perfect.msbookingapp.model.dto.FlightDto;
+import az.perfect.msbookingapp.model.dto.response.FlightDto;
 import az.perfect.msbookingapp.model.dto.request.CreateFlightRequest;
 import az.perfect.msbookingapp.model.dto.request.UpdateFlightRequest;
 import az.perfect.msbookingapp.service.FlightService;
