@@ -18,30 +18,36 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FlightService {
     private final FlightRepository flightRepository;
     private final UserEntityRepository userRepository;
     private final FlightMapper flightMapper;
 
-
-    public FlightDto create(CreateFlightRequest request, Long id) {
-        validateAdmin(id);
+    @Transactional
+    public FlightDto create(CreateFlightRequest request, Long adminId) {
+        validateAdmin(adminId);
         if (request.getDepartureTime().isBefore(LocalDateTime.now())) {
             throw new TimeException("Time does not right!");
         }
-        boolean isFlight = flightRepository
+        boolean isFlightExists = flightRepository
                 .existsByAirlineNameAndDepartureCityAndArrivalCityAndDepartureAirportAndArrivalAirportAndDepartureTime
                         (request.getAirlineName(), request.getDepartureCity(), request.getArrivalCity(),
                                 request.getDepartureAirport(), request.getArrivalAirport(), request.getDepartureTime());
-        if (isFlight) {
+        if (isFlightExists) {
             throw new AlreadyExists("This flight has already exists!");
         }
         FlightEntity flightEntity = flightMapper.toEnt(request);
+        flightEntity.setCreatedBy(adminId);
+        flightEntity.setUpdatedBy(adminId);
+        flightEntity.getFlightDetail().setCreatedBy(adminId);
+        flightEntity.getFlightDetail().setUpdatedBy(adminId);
         FlightEntity savedEntity = flightRepository.save(flightEntity);
         return flightMapper.toDto(savedEntity);
     }
@@ -51,6 +57,7 @@ public class FlightService {
         return entityPage.map(flightMapper::toDto);
     }
 
+    @Transactional
     public void deleteFlightById(Long adminId, Long flightId) {
         validateAdmin(adminId);
         FlightEntity deletedFlight = flightFindById(flightId);
@@ -58,7 +65,7 @@ public class FlightService {
         flightRepository.save(deletedFlight);
     }
 
-
+    @Transactional
     public FlightDto updateFlight(Long adminId, Long flightId, UpdateFlightRequest updateFlightRequest) {
         validateAdmin(adminId);
         FlightEntity flightEntity = flightFindById(flightId);
@@ -75,6 +82,7 @@ public class FlightService {
         flightEntity.getFlightDetail().setAvailableSeats(updateFlightRequest.getAvailableSeats());
         flightEntity.getFlightDetail().setMaxSeats(updateFlightRequest.getMaxSeats());
         flightEntity.getFlightDetail().setFlightStatus(updateFlightRequest.getFlightStatus());
+        flightEntity.setUpdatedBy(adminId);
         FlightEntity updatedFlight = flightRepository.save(flightEntity);
         return flightMapper.toDto(updatedFlight);
     }
@@ -95,5 +103,6 @@ public class FlightService {
     public FlightEntity flightFindById(Long flightId) {
         return flightRepository.findById(flightId)
                 .orElseThrow(() -> new NotFoundException("Flight not found with " + flightId));
+
     }
 }

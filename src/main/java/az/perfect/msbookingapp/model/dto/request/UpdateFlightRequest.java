@@ -3,7 +3,9 @@ package az.perfect.msbookingapp.model.dto.request;
 import az.perfect.msbookingapp.model.enums.AirCraftModel;
 import az.perfect.msbookingapp.model.enums.City;
 import az.perfect.msbookingapp.model.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,36 +22,36 @@ public class UpdateFlightRequest {
 
     @NotBlank
     private String airlineName;
-    @NotBlank
+    @NotNull
     private City departureCity;
-    @NotBlank
+    @NotNull
     private City arrivalCity;
     @NotBlank
     private String departureAirport;
     @NotBlank
     private String arrivalAirport;
-    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime departureTime;
-    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime arrivalTime;
-    @NotBlank
+    @NotNull
     private AirCraftModel airCraftModel;
     @NotBlank
     private String departureTerminal;
     @NotBlank
     private String arrivalTerminal;
-    @NotBlank
+    @NotNull
     private Integer gateNumber;
-    @NotBlank
+    @NotNull
     private Integer maxBaggageWeight;
-    @NotBlank
+    @NotNull
     private Boolean isWifiAvailable;
-    @NotBlank
+    @NotNull
     private Integer availableSeats;
-    @NotBlank
+    @NotNull
     private Integer maxSeats;
-    @NotBlank
+    @NotNull
     private Status flightStatus;
 }

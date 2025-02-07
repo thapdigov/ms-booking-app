@@ -2,6 +2,7 @@ package az.perfect.msbookingapp.domain.entity;
 
 import az.perfect.msbookingapp.model.enums.Nationality;
 import az.perfect.msbookingapp.model.enums.Role;
+import az.perfect.msbookingapp.model.enums.Status;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +57,9 @@ public class UserEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookingEntity> bookings;

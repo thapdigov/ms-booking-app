@@ -1,4 +1,4 @@
-package az.perfect.msbookingapp.model.response;
+package az.perfect.msbookingapp.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

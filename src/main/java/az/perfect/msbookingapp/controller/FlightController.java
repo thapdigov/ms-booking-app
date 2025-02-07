@@ -27,19 +27,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
-@RequestMapping("flights/v1")
+@RequestMapping("v1/flights")
 @RequiredArgsConstructor
 public class FlightController {
 
     private final FlightService flightService;
 
     @GetMapping
-    public ResponseEntity<Page<FlightDto>> getAllFlights(
+    public ResponseEntity<Page<FlightDto>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "departureTime,asc") String sort) {
+            @RequestParam(defaultValue = "departureTime") String sort) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort.split(",")));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
         Page<FlightDto> flights = flightService.getAllFlight(pageable);
         return ResponseEntity.ok(flights);
     }
@@ -50,7 +50,7 @@ public class FlightController {
         return ResponseEntity.status(HttpStatus.CREATED).body(flightService.create(request, id));
     }
 
-    @PutMapping("/admin/{adminId}/{flightId}")
+    @PutMapping("/admin/flihtId/{adminId}/{flightId}")
     public ResponseEntity<FlightDto> update(@Min(1) @NotNull @PathVariable Long adminId,
                                             @Min(1) @NotNull @PathVariable Long flightId,
                                             @Valid @RequestBody UpdateFlightRequest updateFlightRequest

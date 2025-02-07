@@ -31,7 +31,7 @@ import java.util.List;
 @SuperBuilder
 public class FlightEntity extends BaseEntity {
 
-    @Column(name = "airline_name", nullable = false, unique = true, updatable = false)
+    @Column(name = "airline_name", nullable = false, updatable = false)
     private String airlineName;
 
     @Enumerated(EnumType.STRING)
@@ -52,7 +52,7 @@ public class FlightEntity extends BaseEntity {
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy/ HH:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 
