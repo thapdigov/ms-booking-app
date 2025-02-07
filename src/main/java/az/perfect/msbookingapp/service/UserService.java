@@ -13,27 +13,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserEntityRepository userEntityRepository;
     private final UserMapper userMapper;
 
+    @Transactional
     public UserDto create(CreateUserRequest request) {
         if (userEntityRepository.existsByEmail(request.getEmail())) {
             throw new AlreadyExists("User already exists with " + request.getEmail());
         }
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(request.getFirstName());
-        userEntity.setLastName(request.getLastName());
-        userEntity.setEmail(request.getEmail());
-        userEntity.setRole(request.getRole());
-        userEntity.setPhoneNumber(request.getPhoneNumber());
-        userEntity.setDateOfBirth(request.getBirthDay());
-        userEntity.setNationality(request.getNationality());
-        userEntity.setStatus(request.getStatus());
-        UserEntity savedEntity = userEntityRepository.save(userEntity);
+        UserEntity savedEntity = userEntityRepository.save(userMapper.toEnt(request));
         return userMapper.toDto(savedEntity);
     }
 
@@ -42,6 +36,7 @@ public class UserService {
         return entityPage.map(userMapper::toDto);
     }
 
+    @Transactional
     public UserDto updateUser(Long id, UpdateUserRequest request) {
         UserEntity user = findById(id);
         user.setFirstName(request.getFirstName());
@@ -51,17 +46,19 @@ public class UserService {
         user.setPhoneNumber(request.getPhoneNumber());
         user.setDateOfBirth(request.getDateOfBirth());
         user.setNationality(request.getNationality());
-        user.setCreatedBy(id);
+        user.setStatus(request.getStatus());
         UserEntity updatedEntity = userEntityRepository.save(user);
         return userMapper.toDto(updatedEntity);
     }
 
+    @Transactional
     public void deleteUserById(Long id) {
         UserEntity deletedUser = findById(id);
         deletedUser.setStatus(Status.DELETE);
         userEntityRepository.save(deletedUser);
     }
 
+    @Transactional
     public UserDto findUserById(Long id) {
         UserEntity user = findById(id);
         return userMapper.toDto(user);

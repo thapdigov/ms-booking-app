@@ -1,10 +1,7 @@
 package az.perfect.msbookingapp.mapper;
+public interface Mapper<E, D> {
 
-import org.springframework.stereotype.Component;
+    E toEnt(D d);
 
-@Component
-public interface Mapper<E,T>{
-
-    E toEnt(T t);
-    T toDto(E e);
+    D toDto(E e);
 }
