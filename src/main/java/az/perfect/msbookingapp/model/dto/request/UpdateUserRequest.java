@@ -2,6 +2,7 @@ package az.perfect.msbookingapp.model.dto.request;
 
 import az.perfect.msbookingapp.model.enums.Nationality;
 import az.perfect.msbookingapp.model.enums.Role;
+import az.perfect.msbookingapp.model.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,4 +38,6 @@ public class UpdateUserRequest {
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDto> updatePut(@Min(1) @NotNull @PathVariable Long id,
                                              @Valid @RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(userService.updateUser(id, request));
