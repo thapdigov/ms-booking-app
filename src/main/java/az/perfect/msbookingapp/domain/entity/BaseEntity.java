@@ -36,9 +36,9 @@ public class BaseEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "create_by", nullable = false)
+    @Column(name = "create_by")
     private Long createdBy;
 
-    @Column(name = "update_by", nullable = false)
+    @Column(name = "update_by")
     private Long updatedBy;
 }

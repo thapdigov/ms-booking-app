@@ -1,7 +1,7 @@
 package az.perfect.msbookingapp.exception;
 
 import az.perfect.msbookingapp.model.constant.ErrorCode;
-import az.perfect.msbookingapp.model.response.GlobalResponse;
+import az.perfect.msbookingapp.model.dto.response.GlobalResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

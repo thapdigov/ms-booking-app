@@ -5,11 +5,8 @@ import az.perfect.msbookingapp.domain.entity.FlightEntity;
 import az.perfect.msbookingapp.model.dto.response.FlightDto;
 import az.perfect.msbookingapp.model.dto.request.CreateFlightRequest;
 import org.springframework.stereotype.Component;
-
 @Component
 public class FlightMapper implements Mapper<FlightEntity, FlightDto> {
-
-
     @Override
     public FlightEntity toEnt(FlightDto flightDto) {
         return null;
