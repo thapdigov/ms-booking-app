@@ -47,6 +47,7 @@ public class UserService {
         user.setDateOfBirth(request.getDateOfBirth());
         user.setNationality(request.getNationality());
         user.setStatus(request.getStatus());
+        user.setUpdatedBy(id);
         UserEntity updatedEntity = userEntityRepository.save(user);
         return userMapper.toDto(updatedEntity);
     }

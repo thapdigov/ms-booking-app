@@ -18,22 +18,16 @@ databaseChangeLog:
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-                    unique: true
-                    uniqueConstraintName: uq_aircraft_model
               - column:
                   name: departure_terminal
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
-                    uniqueConstraintName: uq_departure_terminal
               - column:
                   name: arrival_terminal
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
-                    uniqueConstraintName: uq_arrival_terminal
               - column:
                   name: gate_number
                   type: INT

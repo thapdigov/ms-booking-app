@@ -1,6 +1,5 @@
 package az.perfect.msbookingapp.model.dto.response;
 
-import az.perfect.msbookingapp.domain.entity.FlightDetailEntity;
 import az.perfect.msbookingapp.model.enums.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
