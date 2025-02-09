@@ -50,7 +50,7 @@ public class FlightController {
         return ResponseEntity.status(HttpStatus.CREATED).body(flightService.create(request, id));
     }
 
-    @PutMapping("/admin/flihtId/{adminId}/{flightId}")
+    @PutMapping("/admin/{adminId}/{flightId}")
     public ResponseEntity<FlightDto> update(@Min(1) @NotNull @PathVariable Long adminId,
                                             @Min(1) @NotNull @PathVariable Long flightId,
                                             @Valid @RequestBody UpdateFlightRequest updateFlightRequest

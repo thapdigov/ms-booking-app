@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class CreateUserRequest {
-    @NotNull
+    @NotBlank
     @Size(max = 20)
     private String firstName;
-    @NotNull
+    @NotBlank
     @Size(max = 20)
     private String lastName;
     @Email
@@ -34,7 +35,7 @@ public class CreateUserRequest {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Size(min = 10, max = 30)
-    @NotNull
+    @NotBlank
     private String phoneNumber;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

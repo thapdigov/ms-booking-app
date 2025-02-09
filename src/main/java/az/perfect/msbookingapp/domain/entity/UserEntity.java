@@ -52,7 +52,7 @@ public class UserEntity extends BaseEntity {
     private String phoneNumber;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "date_of_birth", nullable = false, length = 11, updatable = false)
+    @Column(name = "date_of_birth", nullable = false, length = 11)
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
