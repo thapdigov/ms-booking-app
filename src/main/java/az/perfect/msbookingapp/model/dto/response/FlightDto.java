@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class FlightDto {
 
+    private String airlineName;
+
     private City departureCity;
 
     private City arrivalCity;

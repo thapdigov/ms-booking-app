@@ -30,7 +30,12 @@ public class BookingService {
     private final BookingMapper mapper;
 
     public Page<BookingDto> findAllBooking(Pageable pageable) {
-        return bookingRepository.findAll(pageable).map(mapper::toDto);
+        return bookingRepository.findAll(pageable).map(bookingEntity -> {
+            BookingDto bookingDto = mapper.toDto(bookingEntity);
+            bookingDto.setUserId(bookingEntity.getUser().getId());
+            bookingDto.setFlightId(bookingEntity.getFlight().getId());
+            return bookingDto;
+        });
     }
 
     @Transactional
@@ -41,16 +46,16 @@ public class BookingService {
 
         UserEntity user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with " + request.getUserId()));
-
-        BookingEntity bookingEntity = new BookingEntity();
-        bookingEntity.setSeatNumber(request.getSeatNumber());
+        BookingEntity bookingEntity = mapper.toEnt(request);
         bookingEntity.setFlight(flight);
         bookingEntity.setUser(user);
-        bookingEntity.setBookingStatus(request.getBookingStatus());
         bookingEntity.setCreatedBy(request.getUserId());
         bookingEntity.setUpdatedBy(request.getUserId());
         BookingEntity savedBooking = bookingRepository.save(bookingEntity);
-        return mapper.toDto(savedBooking);
+        BookingDto bookingDto = mapper.toDto(savedBooking);
+        bookingDto.setFlightId(savedBooking.getFlight().getId());
+        bookingDto.setUserId(savedBooking.getUser().getId());
+        return bookingDto;
     }
 
     public BookingDto updateBooking(Long adminId, Long bookingId, UpdateBookingRequest request) {
@@ -72,13 +77,20 @@ public class BookingService {
 
     public BookingDto findById(Long bookingId) {
         BookingEntity bookingEntity = findByIdForMethods(bookingId);
-        return mapper.toDto(bookingEntity);
+        BookingDto bookingDto = mapper.toDto(bookingEntity);
+        bookingDto.setFlightId(bookingEntity.getFlight().getId());
+        bookingDto.setUserId(bookingEntity.getUser().getId());
+        return bookingDto;
     }
 
     public BookingDto deleteBooking(Long bookingId) {
         BookingEntity deletedBooking = findByIdForMethods(bookingId);
         deletedBooking.setBookingStatus(Status.DELETE);
-        return mapper.toDto(bookingRepository.save(deletedBooking));
+        BookingEntity save = bookingRepository.save(deletedBooking);
+        BookingDto bookingDto = mapper.toDto(save);
+        bookingDto.setFlightId(save.getFlight().getId());
+        bookingDto.setUserId(save.getUser().getId());
+        return bookingDto;
     }
 
     public BookingEntity findByIdForMethods(Long id) {

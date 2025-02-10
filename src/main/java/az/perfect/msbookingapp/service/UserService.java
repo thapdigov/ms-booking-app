@@ -39,14 +39,7 @@ public class UserService {
     @Transactional
     public UserDto updateUser(Long id, UpdateUserRequest request) {
         UserEntity user = findById(id);
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setRole(request.getRole());
-        user.setPhoneNumber(request.getPhoneNumber());
-        user.setDateOfBirth(request.getDateOfBirth());
-        user.setNationality(request.getNationality());
-        user.setStatus(request.getStatus());
+        user = userMapper.toEnt(user, request);
         user.setUpdatedBy(id);
         UserEntity updatedEntity = userEntityRepository.save(user);
         return userMapper.toDto(updatedEntity);

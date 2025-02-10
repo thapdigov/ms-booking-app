@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BookingDto {
     private Long seatNumber;
-    private FlightEntity flight;
-    private UserEntity user;
+    private Long  flightId;
+    private Long userId;
     private Status bookingStatus;
 }

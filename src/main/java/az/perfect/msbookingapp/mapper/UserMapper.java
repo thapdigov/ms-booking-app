@@ -4,59 +4,32 @@ import az.perfect.msbookingapp.domain.entity.UserEntity;
 import az.perfect.msbookingapp.model.dto.request.CreateUserRequest;
 import az.perfect.msbookingapp.model.dto.request.UpdateUserRequest;
 import az.perfect.msbookingapp.model.dto.response.UserDto;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class UserMapper implements Mapper<UserEntity, UserDto> {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    @Override
-    public UserEntity toEnt(UserDto userDto) {
-        return UserEntity.builder()
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .role(userDto.getRole())
-                .phoneNumber(userDto.getPhoneNumber())
-                .dateOfBirth(userDto.getDateOfBirth())
-                .nationality(userDto.getNationality())
-                .build();
-    }
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Override
-    public UserDto toDto(UserEntity userEntity) {
-        return UserDto.builder()
-                .firstName(userEntity.getFirstName())
-                .lastName(userEntity.getLastName())
-                .email(userEntity.getEmail())
-                .role(userEntity.getRole())
-                .phoneNumber(userEntity.getPhoneNumber())
-                .dateOfBirth(userEntity.getDateOfBirth())
-                .nationality(userEntity.getNationality())
-                .build();
-    }
+    @Mapping(target = "createdAt", expression = ("java(java.time.LocalDateTime.now())"))
+    @Mapping(target = "updatedAt", expression = ("java(java.time.LocalDateTime.now())"))
+    @Mapping(target = "status", constant = "ACTIVE")
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    UserEntity toEnt(UserDto userDto);
 
-    public UserEntity toEnt(CreateUserRequest request) {
-        return UserEntity.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .role(request.getRole())
-                .phoneNumber(request.getPhoneNumber())
-                .dateOfBirth(request.getBirthDay())
-                .nationality(request.getNationality())
-                .status(request.getStatus())
-                .build();
-    }
-    public UserEntity toEnt(UpdateUserRequest request) {
-        return UserEntity.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .role(request.getRole())
-                .phoneNumber(request.getPhoneNumber())
-                .dateOfBirth(request.getDateOfBirth())
-                .nationality(request.getNationality())
-                .status(request.getStatus())
-                .build();
-    }
+    UserDto toDto(UserEntity userEntity);
+
+    @Mapping(target = "dateOfBirth", source = "birthDay")
+    @Mapping(target = "createdAt", expression = ("java(java.time.LocalDateTime.now())"))
+    @Mapping(target = "updatedAt", expression = ("java(java.time.LocalDateTime.now())"))
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    UserEntity toEnt(CreateUserRequest request);
+
+
+    UserEntity toEnt(@MappingTarget UserEntity entity, UpdateUserRequest request);
 }

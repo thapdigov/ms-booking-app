@@ -69,20 +69,9 @@ public class FlightService {
     public FlightDto updateFlight(Long adminId, Long flightId, UpdateFlightRequest updateFlightRequest) {
         validateAdmin(adminId);
         FlightEntity flightEntity = flightFindById(flightId);
-        flightEntity.setAirlineName(updateFlightRequest.getAirlineName());
-        flightEntity.setDepartureCity(updateFlightRequest.getDepartureCity());
-        flightEntity.setArrivalCity(updateFlightRequest.getArrivalCity());
-        flightEntity.setDepartureAirport(updateFlightRequest.getDepartureAirport());
-        flightEntity.setArrivalAirport(updateFlightRequest.getArrivalAirport());
-        flightEntity.setDepartureTime(updateFlightRequest.getDepartureTime());
-        flightEntity.setArrivalTime(updateFlightRequest.getArrivalTime());
-        flightEntity.getFlightDetail().setGateNumber(updateFlightRequest.getGateNumber());
-        flightEntity.getFlightDetail().setMaxBaggageWeight(updateFlightRequest.getMaxBaggageWeight());
-        flightEntity.getFlightDetail().setIsWifiAvailable(updateFlightRequest.getIsWifiAvailable());
-        flightEntity.getFlightDetail().setAvailableSeats(updateFlightRequest.getAvailableSeats());
-        flightEntity.getFlightDetail().setMaxSeats(updateFlightRequest.getMaxSeats());
-        flightEntity.getFlightDetail().setFlightStatus(updateFlightRequest.getFlightStatus());
+        flightEntity = flightMapper.toEnt(flightEntity, updateFlightRequest);
         flightEntity.setUpdatedBy(adminId);
+        flightEntity.getFlightDetail().setUpdatedBy(adminId);
         FlightEntity updatedFlight = flightRepository.save(flightEntity);
         return flightMapper.toDto(updatedFlight);
     }
